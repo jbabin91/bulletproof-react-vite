@@ -21,12 +21,11 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
 
-    /* Incremental Builds */
     "incremental": true,
     "tsBuildInfoFile": "${configDir}/node_modules/.cache/typescript/tsconfig.node.tsbuildinfo"
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "tailwind.config.ts"]
 }

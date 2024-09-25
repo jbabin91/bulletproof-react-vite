@@ -1,7 +1,15 @@
 {
   "eslint.useFlatConfig": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.autoImportFileExcludePatterns": [],
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@radix-ui/react-dialog",
+    "@radix-ui/react-dropdown-menu",
+    "@radix-ui/react-icons",
+    "@radix-ui/react-label",
+    "@radix-ui/react-slot",
+    "sonner",
+    "vaul"
+  ],
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
