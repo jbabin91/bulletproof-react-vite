@@ -18,7 +18,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', '**/*.gen.ts'] },
+  { ignores: ['dist', 'coverage', '**/mockServiceWorker.js', '**/*.gen.ts'] },
   ...pluginRouter.configs['flat/recommended'],
   {
     languageOptions: {

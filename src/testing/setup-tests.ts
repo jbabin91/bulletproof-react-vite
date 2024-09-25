@@ -1,9 +1,11 @@
 import '@testing-library/jest-dom/vitest';
 
+import { server } from '@/testing/mocks/server.ts';
+
 // vi.mock('zustand')
 
-// beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-// afterAll(() => server.close());
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+afterAll(() => server.close());
 beforeEach(() => {
   const ResizeObserverMock = vi.fn(() => ({
     disconnect: vi.fn(),
@@ -18,7 +20,7 @@ beforeEach(() => {
 
   // initializeDb();
 });
-// afterEach(() => {
-//   server.resetHandlers();
-//   resetDb();
-// });
+afterEach(() => {
+  server.resetHandlers();
+  // resetDb();
+});

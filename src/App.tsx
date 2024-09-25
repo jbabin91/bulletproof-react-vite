@@ -4,13 +4,21 @@ import viteLogo from '/vite.svg';
 import reactLogo from '@/assets/react.svg';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui';
-import { Providers } from '@/providers';
+import { useHealthcheck } from '@/hooks/use-healthcheck';
 
 export function App() {
   const [count, setCount] = useState(0);
 
+  const healthcheck = useHealthcheck();
+
+  if (healthcheck.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(healthcheck.data?.ok);
+
   return (
-    <Providers>
+    <>
       <div className="flex justify-center gap-4">
         <a href="https://vitejs.dev" rel="noreferrer" target="_blank">
           <img alt="Vite logo" className="logo" src={viteLogo} />
@@ -34,6 +42,6 @@ export function App() {
       <p className="text-[#888]">
         Click on the Vite and React logos to learn more
       </p>
-    </Providers>
+    </>
   );
 }

@@ -4,9 +4,19 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from '@/App.tsx';
+import { Providers } from '@/providers';
+import { enableMocking } from '@/testing/mocks';
 
-createRoot(document.querySelector('#root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const root = document.querySelector('#root');
+if (!root) throw new Error('No root element found');
+
+// eslint-disable-next-line unicorn/prefer-top-level-await
+enableMocking().then(() => {
+  createRoot(root).render(
+    <StrictMode>
+      <Providers>
+        <App />
+      </Providers>
+    </StrictMode>,
+  );
+});

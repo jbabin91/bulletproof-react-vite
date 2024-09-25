@@ -13,7 +13,16 @@ export default defineConfig({
         chunkFileNames: 'assets/[name].[hash].js',
         entryFileNames: 'assets/[name].[hash].js',
         manualChunks: {
+          msw: ['msw'],
+          radix: [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-icons',
+            '@radix-ui/react-label',
+            '@radix-ui/react-slot',
+          ],
           react: ['react', 'react-dom'],
+          tanstack: ['@tanstack/react-query'],
         },
       },
     },
