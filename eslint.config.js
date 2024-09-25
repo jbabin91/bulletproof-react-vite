@@ -18,7 +18,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', '**/*.gen.ts'] },
+  { ignores: ['dist', 'coverage', '**/*.gen.ts'] },
   ...pluginRouter.configs['flat/recommended'],
   {
     languageOptions: {
