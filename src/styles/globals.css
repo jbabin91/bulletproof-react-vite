@@ -63,7 +63,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground m-0 flex min-h-screen min-w-80 place-items-center;
+    @apply m-0 flex min-h-screen min-w-80 place-items-center bg-background text-foreground;
   }
 
   :root {
