@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { delay } from 'msw';
 
-import { db } from '@/testing/mocks/db.ts';
+import { db } from './db.ts';
 
 export function encode(obj: any) {
   const btoa =

@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { env } from '@/config/env.ts';
 
 export async function enableMocking() {
   if (env.VITE_ENABLE_API_MOCKING) {
