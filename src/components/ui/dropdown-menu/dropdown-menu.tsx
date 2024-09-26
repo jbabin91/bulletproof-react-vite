@@ -1,12 +1,8 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import {
-  CheckIcon,
-  ChevronRightIcon,
-  DotFilledIcon,
-} from '@radix-ui/react-icons';
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { Icons } from '@/components/icons.tsx';
+import { cn } from '@/utils/cn.ts';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -36,7 +32,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <ChevronRightIcon className="ml-auto size-4" />
+    <Icons.ChevronRight className="ml-auto size-4" />
   </DropdownMenuPrimitive.SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName =
@@ -110,7 +106,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <CheckIcon className="size-4" />
+        <Icons.Check className="size-4" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -133,7 +129,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <DotFilledIcon className="size-4 fill-current" />
+        <Icons.DotFilled className="size-4 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

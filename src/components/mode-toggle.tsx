@@ -1,4 +1,4 @@
-import { Icons } from '@/components/icons';
+import { Icons } from '@/components/icons.tsx';
 import {
   Button,
   DropdownMenu,
@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui';
-import { useTheme } from '@/providers/theme-provider';
+import { useTheme } from '@/providers/theme-provider.tsx';
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
