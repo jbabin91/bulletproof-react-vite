@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 
+import { initializeDb, resetDb } from '@/testing/mocks/db.ts';
 import { server } from '@/testing/mocks/server.ts';
 
 // vi.mock('zustand')
@@ -18,9 +19,9 @@ beforeEach(() => {
   window.btoa = (str: string) => Buffer.from(str, 'binary').toString('base64');
   window.atob = (str: string) => Buffer.from(str, 'base64').toString('binary');
 
-  // initializeDb();
+  initializeDb();
 });
 afterEach(() => {
   server.resetHandlers();
-  // resetDb();
+  resetDb();
 });

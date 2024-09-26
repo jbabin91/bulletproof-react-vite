@@ -7,13 +7,16 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   base: './',
   build: {
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
+      external: ['node:fs/promises'],
       output: {
         assetFileNames: 'assets/[name].[hash].[ext]',
         chunkFileNames: 'assets/[name].[hash].js',
         entryFileNames: 'assets/[name].[hash].js',
+        experimentalMinChunkSize: 3500,
         manualChunks: {
-          msw: ['msw'],
+          msw: ['msw', '@mswjs/data'],
           radix: [
             '@radix-ui/react-dialog',
             '@radix-ui/react-dropdown-menu',

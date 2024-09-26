@@ -1,4 +1,7 @@
+import Cookies from 'js-cookie';
 import { delay } from 'msw';
+
+import { db } from '@/testing/mocks/db.ts';
 
 export function encode(obj: any) {
   const btoa =
@@ -48,58 +51,58 @@ export function sanitizeUser<O extends object>(user: O) {
   return omit<O>(user, ['password', 'iat']);
 }
 
-// export function authenticate({
-//   email,
-//   password,
-// }: {
-//   email: string;
-//   password: string;
-// }) {
-//   const user = db.user.findFirst({
-//     where: {
-//       email: {
-//         equals: email,
-//       },
-//     },
-//   });
+export function authenticate({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  const user = db.user.findFirst({
+    where: {
+      email: {
+        equals: email,
+      },
+    },
+  });
 
-//   if (user?.password === hash(password)) {
-//     const sanitizedUser = sanitizeUser(user);
-//     const encodedToken = encode(sanitizedUser);
-//     return { jwt: encodedToken, user: sanitizedUser };
-//   }
+  if (user?.password === hash(password)) {
+    const sanitizedUser = sanitizeUser(user);
+    const encodedToken = encode(sanitizedUser);
+    return { jwt: encodedToken, user: sanitizedUser };
+  }
 
-//   const error = new Error('Invalid username or password');
-//   throw error;
-// }
+  const error = new Error('Invalid username or password');
+  throw error;
+}
 
 export const AUTH_COOKIE = 'bulletproof_react_vite_app_token';
 
-// export function requireAuth(cookies: Record<string, string>) {
-//   try {
-//     const encodedToken = cookies[AUTH_COOKIE] ?? Cookies.get(AUTH_COOKIE);
-//     if (!encodedToken) {
-//       return { error: 'Unauthorized', user: null };
-//     }
-//     const decodedToken = decode(encodedToken) as { id: string };
+export function requireAuth(cookies: Record<string, string>) {
+  try {
+    const encodedToken = cookies[AUTH_COOKIE] ?? Cookies.get(AUTH_COOKIE);
+    if (!encodedToken) {
+      return { error: 'Unauthorized', user: null };
+    }
+    const decodedToken = decode(encodedToken) as { id: string };
 
-//     const user = db.user.findFirst({
-//       where: {
-//         id: {
-//           equals: decodedToken.id,
-//         },
-//       },
-//     });
+    const user = db.user.findFirst({
+      where: {
+        id: {
+          equals: decodedToken.id,
+        },
+      },
+    });
 
-//     if (!user) {
-//       return { error: 'Unauthorized', user: null };
-//     }
+    if (!user) {
+      return { error: 'Unauthorized', user: null };
+    }
 
-//     return { user: sanitizedUser(user) };
-//   } catch {
-//     return { error: 'Unauthorized', user: null };
-//   }
-// }
+    return { user: sanitizeUser(user) };
+  } catch {
+    return { error: 'Unauthorized', user: null };
+  }
+}
 
 export function requireAdmin(user: any) {
   if (user?.role !== 'ADMIN') {

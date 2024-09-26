@@ -133,5 +133,11 @@ export default tseslint.config(
       'tailwindcss/no-custom-classname': 'off',
     },
   },
+  {
+    files: ['**/testing/**/*.ts'],
+    rules: {
+      'sort-keys-fix/sort-keys-fix': 'off',
+    },
+  },
   eslintConfigPrettier,
 );

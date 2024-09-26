@@ -3,51 +3,63 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
+import Cookies from 'node_modules/@types/js-cookie';
 
 import { Providers } from '@/providers';
+import { db } from '@/testing/mocks/db';
+import { AUTH_COOKIE, authenticate, hash } from '@/testing/mocks/utils';
 
-// export const createUser = async (userProperties?: any) => {
-//   const user = generateUser(userProperties) as any;
-//   await db.user.create({ ...user, password: hash(user.password) });
-//   return user;
-// };
+import {
+  createDiscussion as generateDiscussion,
+  createUser as generateUser,
+} from './data-generators';
 
-// export const createDiscussion = async (discussionProperties?: any) => {
-//   const discussion = generateDiscussion(discussionProperties);
-//   const res = await db.discussion.create(discussion);
-//   return res;
-// };
+export function createUser(userProperties?: any) {
+  const user = generateUser(userProperties) as any;
+  db.user.create({ ...user, password: hash(user.password) });
+  return user;
+}
 
-// export const loginAsUser = async (user: any) => {
-//   const authUser = await authenticate(user);
-//   Cookies.set(AUTH_COOKIE, authUser.jwt);
-//   return authUser;
-// };
+export function createDiscussion(discussionProperties?: any) {
+  const discussion = generateDiscussion(discussionProperties);
+  const res = db.discussion.create(discussion);
+  return res;
+}
 
-export const waitForLoadingToFinish = () =>
-  waitForElementToBeRemoved(
+export function loginAsUser(user: any) {
+  const authUser = authenticate(user);
+  Cookies.set(AUTH_COOKIE, authUser.jwt);
+  return authUser;
+}
+
+export function waitForLoadingToFinish() {
+  return waitForElementToBeRemoved(
     () => [
       ...screen.queryAllByTestId(/loading/i),
       ...screen.queryAllByText(/loading/i),
     ],
     { timeout: 4000 },
   );
+}
 
-// const initializeUser = async (user: any) => {
-//   if (typeof user === 'undefined') {
-//     const newUser = await createUser();
-//     return loginAsUser(newUser);
-//   } else if (user) {
-//     return loginAsUser(user);
-//   } else {
-//     return null;
-//   }
-// };
+async function initializeUser(user: any) {
+  if (user === undefined) {
+    const newUser = await createUser();
+    return loginAsUser(newUser);
+  } else if (user) {
+    return loginAsUser(user);
+  } else {
+    return null;
+  }
+}
 
-export const renderApp = async (
+export async function renderApp(
   ui: any,
-  { ...renderOptions }: Record<string, any> = {},
-) => {
+  { user, ...renderOptions }: Record<string, any> = {},
+) {
+  // if you want to render the app unauthenticated then pass "null" as the user
+  const initializedUser = await initializeUser(user);
+
   const returnValue = {
     ...rtlRender(ui, {
       wrapper: () => {
@@ -59,12 +71,13 @@ export const renderApp = async (
       },
       ...renderOptions,
     }),
+    user: initializedUser,
   };
 
   await waitForLoadingToFinish();
 
   return returnValue;
-};
+}
 
 export * from '@testing-library/react';
 export { render as rtlRender } from '@testing-library/react';
