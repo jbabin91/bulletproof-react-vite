@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from '@/App.tsx';
+import { TailwindIndicator, TanstackQueryDevtools } from '@/components/utils';
 import { Providers } from '@/providers';
 import { enableMocking } from '@/testing/mocks';
 
@@ -16,6 +17,8 @@ enableMocking().then(() => {
     <StrictMode>
       <Providers>
         <App />
+        <TanstackQueryDevtools />
+        <TailwindIndicator />
       </Providers>
     </StrictMode>,
   );
