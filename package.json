@@ -84,7 +84,7 @@
     "msw": "^2.4.9",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
-    "prettier-plugin-packagejson": "^2.5.2",
+    "prettier-plugin-packagejson": "^2.5.22",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2",
